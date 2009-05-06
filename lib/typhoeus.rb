@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__)) unless $LOAD_PATH.include?(File.dirna
 require 'cgi'
 require 'digest/sha2'
 require 'typhoeus/easy'
+require 'typhoeus/header_wrapper'
 require 'typhoeus/multi'
 require 'typhoeus/native'
 require 'typhoeus/filter'

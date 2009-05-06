@@ -26,6 +26,39 @@ describe Typhoeus::Easy do
     end
   end
   
+  describe "response headers" do
+    it "should retrieve values" do
+      easy = Typhoeus::Easy.new
+      easy.url    = "http://localhost:3002"
+      easy.method = :get
+      easy.perform
+      easy.response_code.should == 200
+      easy.response_headers['Custom-Header'].should == 'Value'
+    end
+    
+    it "should be case insensitive" do
+      easy = Typhoeus::Easy.new
+      easy.url    = "http://localhost:3002"
+      easy.method = :get
+      easy.perform
+      easy.response_code.should == 200
+
+      easy.response_headers['custom-header'].should == 'Value'
+      easy.response_headers['cuSTom-heADeR'].should == 'Value'
+    end
+
+    
+    it "should ignore trailing and leading white space" do
+      easy = Typhoeus::Easy.new
+      easy.url    = "http://localhost:3002"
+      easy.method = :get
+      easy.perform
+      easy.response_code.should == 200
+
+      easy.response_headers['with-white-space'].should == 'your name here'
+    end
+  end
+  
   describe "get" do
     it "should perform a get" do
       easy = Typhoeus::Easy.new

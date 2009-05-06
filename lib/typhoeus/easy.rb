@@ -185,5 +185,17 @@ module Typhoeus
     def get_info_double(option)
       easy_getinfo_double(option)
     end
-  end
+    
+    def response_headers
+      unless @response_headers
+        @response_headers = HeaderWrapper.new
+        response_header.each do |value|
+          if value =~ /\A([^:]+):\s*(.*\S)\s*\Z/
+            @response_headers[$1] = $2
+          end
+        end
+      end
+      @response_headers
+    end
+  end  
 end

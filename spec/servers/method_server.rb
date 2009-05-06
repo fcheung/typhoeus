@@ -15,6 +15,10 @@ class MethodServer  < EventMachine::Connection
     operation = proc do
       sleep MethodServer.sleep_time
       resp.status = 200
+      resp.headers['Custom-Header'] = 'Value' 
+      resp.headers['with-white-space'] = '  your name here    ' 
+      resp.headers['Multi-Header'] = '1'
+      resp.headers['Multi-Header'] = '2'
       resp.content = request_params + "\n#{@http_post_content}"
     end
 
