@@ -19,13 +19,19 @@ describe Typhoeus::HeaderWrapper do
   end
   
   it "should allow iteration" do
-    @headers['header1'] = 'value1'
-    @headers['heaDER2'] = 'value2'
-    @headers['header3'] = 'value3'
+    @headers['Header1'] = 'value1'
+    @headers['HeaDER2'] = 'value2'
+    @headers['Header3'] = 'value3'
 
     result = {}
     @headers.each {|k,v| result[k]=v}
-    result.should == {'header1' => 'value1', 'header2' => 'value2', 'header3' => 'value3'}
+    result.should == {'Header1' => 'value1', 'Header2' => 'value2', 'Header3' => 'value3'}
   end
 
+  it "should canonicalize header names" do
+    @headers['content-length'] = 'value1'
+    result = {}
+    @headers.each {|k,v| result[k]=v}
+    result.should == {'Content-Length'=> 'value1'}
+  end
 end
