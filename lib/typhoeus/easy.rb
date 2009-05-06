@@ -172,6 +172,7 @@ module Typhoeus
     
     def reset
       easy_reset()
+      @response_headers = nil
     end
     
     def get_info_string(option)

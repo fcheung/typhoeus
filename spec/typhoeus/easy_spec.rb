@@ -153,7 +153,19 @@ describe Typhoeus::Easy do
     end
   end
   
+  
   describe "reset" do
+    it "should remove response headers" do
+      easy = Typhoeus::Easy.new
+      easy.url    = "http://localhost:3002"
+      easy.method = :get
+      easy.perform
+      easy.response_headers['Custom-Header'] = 'Foo'
+      easy.reset
+      easy.url    = "http://localhost:3002"
+      easy.perform
+      easy.response_headers['Custom-Header'].should == 'Value'
+    end
     
     it "should not crash if headers or body set" do
       easy = Typhoeus::Easy.new
