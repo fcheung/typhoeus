@@ -84,10 +84,12 @@ static VALUE easy_reset(VALUE self) {
 
 	if (curl_easy->request_chunk != NULL) {
 		free(curl_easy->request_chunk);
+    curl_easy->request_chunk = NULL;
 	}
 	
 	if (curl_easy->headers != NULL) {
 		curl_slist_free_all(curl_easy->headers);
+    curl_easy->headers = NULL;
 	}
 
 	return Qnil;	

@@ -151,5 +151,20 @@ describe Typhoeus::Easy do
       easy.response_code.should == 200
       easy.response_body.should include("this is a body!")
     end
-  end  
+  end
+  
+  describe "reset" do
+    
+    it "should not crash if headers or body set" do
+      easy = Typhoeus::Easy.new
+      easy.url    = "http://localhost:3002"
+      easy.method = :get
+      easy.request_body = "this is a body!"
+      easy.headers['Foo'] = "Bar"
+      easy.perform
+      easy.reset
+      easy.url    = "http://localhost:3002"
+      easy.perform
+    end
+  end
 end
